@@ -1,0 +1,5 @@
+ {
+    "network": "mainnet",
+    "startBlock":  123456,
+    "marketplaceAddress": "<address>"
+ }

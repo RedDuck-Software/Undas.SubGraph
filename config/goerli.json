@@ -1,0 +1,5 @@
+{
+    "network": "goerli",
+    "startBlock": 12345,
+    "marketplaceAddress": "0xea0A6E3c511bbD10f4519EcE37Dc24887e11b55d"
+}

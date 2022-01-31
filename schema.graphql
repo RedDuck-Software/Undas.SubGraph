@@ -1,0 +1,10 @@
+enum ListingStatus { Active, Sold, Cancelled }
+
+type Listing @entity { 
+  id: ID!
+  listingStatus: ListingStatus!
+  seller: Bytes!
+  token: Bytes!
+  tokenId: BigInt!
+  buyer: Bytes
+}
