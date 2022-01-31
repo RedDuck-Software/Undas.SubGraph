@@ -12,21 +12,11 @@ import {
 import {
   Listed as ListedEvent,
   Sale as SaleEvent,
-  CancelBid as CancelListingEvent
+  CancelBid as CancelListingEvent,
   Marketplace
 } from "../../generated/Marketplace/Marketplace";
 
 enum ListingStatus { Active, Sold, Cancelled }
-
-function parseListingStatus(status: Int32): ListingStatus {
-  switch (status) {
-    case 0: return ListingStatus.Active;
-    case 1: return ListingStatus.Sold;
-    case 2: return ListingStatus.Cancelled;
-    default: throw new Error('Invalid status')
-  }
-}
-
 
 export function handleListed(event: ListedEvent): void {
   const listingId = event.params.listingId
@@ -46,16 +36,20 @@ export function handleSale(event: SaleEvent): void {
 
   const listing = Listing.load(listingId.toString());
 
+  if (!listing) throw new Error('Listing entity is not found');
+
   listing.listingStatus = ListingStatus.Sold.toString();
   listing.buyer = event.params.buyer;
 
   listing.save();
 }
 
-export function handleListingCancel(event: CancelListingEvent) {
+export function handleListingCancel(event: CancelListingEvent): void {
   const listingId = event.params.listingId
 
   const listing = Listing.load(listingId.toString());
+
+  if (!listing) throw new Error('Listing entity is not found');
 
   listing.listingStatus = ListingStatus.Cancelled.toString();
 
